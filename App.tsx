@@ -1,12 +1,28 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
+import { useFonts } from "expo-font";
 
 import Email from "./assets/icons/email";
 import Senha from "./assets/icons/senha";
 import Iris from "./assets/icons/iris";
 
+function LoadEntrar() {
+  return <ActivityIndicator size="large" />;
+}
+
 export default function App() {
+  const [FontLoad, erro] = useFonts({
+    "ABeeZee-Regular": require("./assets/fonts/ABeeZee-Regular.ttf"),
+    "ABeeZee-Italic": require("./assets/fonts/ABeeZee-Italic.ttf"),
+  });
   return (
     <View style={styles.fundo}>
       <View style={styles.logo}></View>
@@ -58,16 +74,26 @@ export default function App() {
         >
           Esqueceu sua Senha ?
         </Text>
-        <Pressable style={styles.botao} onPress={null}>
-          <Text
-            style={{
-              fontFamily: "ABeeZee-Regular",
-              color: "#fff",
-              fontSize: 15,
-            }}
-          >
-            Entrar
-          </Text>
+        <Pressable
+          onPress={() => {}}
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "rgb(255, 0, 0)" : "red",
+            },
+            styles.botao,
+          ]}
+        >
+          {({ pressed }) => (
+            <Text
+              style={{
+                fontFamily: "ABeeZee-Regular",
+                color: "#fff",
+                fontSize: 15,
+              }}
+            >
+              {pressed ? LoadEntrar() : "Entrar"}
+            </Text>
+          )}
         </Pressable>
         <Text
           style={{
